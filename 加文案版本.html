@@ -184,6 +184,7 @@
     display: flex;
     overflow: hidden;
     background: var(--bg);
+    min-height: 0;
   }
   .chat-shell {
     width: 100%;
@@ -193,6 +194,7 @@
     gap: 0;
     padding: 0;
     height: 100%;
+    min-height: 0;
   }
   .history-panel {
     background: #FFFFFF;
@@ -293,6 +295,9 @@
     flex-direction: column;
     min-width: 0;
     padding: 18px 24px 0;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
   }
 
   .chat-messages {
@@ -1456,8 +1461,8 @@
                   <svg width="22" height="22" fill="none" stroke="#E87A3A" stroke-width="1.8"><path d="M14 2H7a2 2 0 00-2 2v14a2 2 0 002 2h9a2 2 0 002-2V6l-4-4z"/><polyline points="14 2 14 6 18 6"/><line x1="8" y1="11" x2="14" y2="11"/><line x1="8" y1="14" x2="14" y2="14"/></svg>
                 </div>
                 <div class="fc-info">
-                  <div class="fc-name">SQL_history_2024.sql</div>
-                  <div class="fc-meta">.sql · 128 KB · 326条SQL语句</div>
+                  <div class="fc-name" id="fcName">未选择文件</div>
+                  <div class="fc-meta" id="fcMeta">请选择本地文件上传</div>
                 </div>
                 <button class="fc-remove" id="removeFile">
                   <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="3" x2="11" y2="11"/><line x1="11" y1="3" x2="3" y2="11"/></svg>
@@ -1468,6 +1473,7 @@
               <button class="chat-upload-btn" id="uploadBtn" title="上传SQL文件">
                 <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H7a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V5l-3-3z"/><polyline points="14 2 14 5 17 5"/><line x1="7" y1="10" x2="13" y2="10"/><line x1="10" y1="7" x2="10" y2="13"/></svg>
               </button>
+              <input type="file" id="fileInput" accept=".sql,.txt,.csv,.xlsx" hidden />
               <button class="chat-api-btn" type="button" title="qwen3-coder-plus">
                 <span class="api-icon" title="qwen3-coder-plus">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
@@ -1487,7 +1493,7 @@
                   <path d="M3 5l3 3 3-3"/>
                 </svg>
               </button>
-              <input type="text" id="chatInput" placeholder="输入指令，如「根据上传的SQL history自动生成指标」..." />
+              <input type="text" id="chatInput" placeholder="输入指令，如「根据上传的文件生成指标」..." />
               <button class="chat-send-btn" id="sendBtn">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13" transform="scale(0.8) translate(1,1)"/><polygon points="22 2 15 22 11 13 2 9 22 2" transform="scale(0.8) translate(1,1)"/></svg>
               </button>
@@ -1626,8 +1632,7 @@
             <div class="metric-card-title">指标 1</div>
             <button class="metric-remove" title="移除">
               <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <line x1="3" y1="3" x2="9" y2="9"/>
-                <line x1="9" y1="3" x2="3" y2="9"/>
+                <line x1="3" y1="6" x2="9" y2="6"/>
               </svg>
             </button>
           </div>
@@ -1672,8 +1677,7 @@
             <div class="metric-card-title">指标 2</div>
             <button class="metric-remove" title="移除">
               <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <line x1="3" y1="3" x2="9" y2="9"/>
-                <line x1="9" y1="3" x2="3" y2="9"/>
+                <line x1="3" y1="6" x2="9" y2="6"/>
               </svg>
             </button>
           </div>
@@ -1718,8 +1722,7 @@
             <div class="metric-card-title">指标 3</div>
             <button class="metric-remove" title="移除">
               <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <line x1="3" y1="3" x2="9" y2="9"/>
-                <line x1="9" y1="3" x2="3" y2="9"/>
+                <line x1="3" y1="6" x2="9" y2="6"/>
               </svg>
             </button>
           </div>
@@ -1764,8 +1767,7 @@
             <div class="metric-card-title">指标 4</div>
             <button class="metric-remove" title="移除">
               <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <line x1="3" y1="3" x2="9" y2="9"/>
-                <line x1="9" y1="3" x2="3" y2="9"/>
+                <line x1="3" y1="6" x2="9" y2="6"/>
               </svg>
             </button>
           </div>
@@ -1810,8 +1812,7 @@
             <div class="metric-card-title">指标 5</div>
             <button class="metric-remove" title="移除">
               <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <line x1="3" y1="3" x2="9" y2="9"/>
-                <line x1="9" y1="3" x2="3" y2="9"/>
+                <line x1="3" y1="6" x2="9" y2="6"/>
               </svg>
             </button>
           </div>
@@ -1856,8 +1857,7 @@
             <div class="metric-card-title">指标 6</div>
             <button class="metric-remove" title="移除">
               <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <line x1="3" y1="3" x2="9" y2="9"/>
-                <line x1="9" y1="3" x2="3" y2="9"/>
+                <line x1="3" y1="6" x2="9" y2="6"/>
               </svg>
             </button>
           </div>
@@ -1960,17 +1960,30 @@ const $ = id => document.getElementById(id);
 const page1 = $('page1'), page2 = $('page2');
 const chatMessages = $('chatMessages'), chatInput = $('chatInput');
 const uploadPreview = $('uploadPreview');
+const fileInput = $('fileInput');
+const fcName = $('fcName');
+const fcMeta = $('fcMeta');
+const navData = $('navData');
 const policyBtn = $('policyBtn');
 const policyModal = $('policyModal');
 const policyClose = $('policyClose');
 const drawerMask = document.getElementById('drawerMask');
 const drawerPanel = document.getElementById('drawerPanel');
+let selectedFile = null;
+let dataUnlocked = false;
 
 function openDrawer() {
   document.body.classList.add('drawer-open');
 }
 function closeDrawer() {
   document.body.classList.remove('drawer-open');
+}
+
+function refreshMetricCardTitles() {
+  document.querySelectorAll('.metric-card').forEach((card, idx) => {
+    const title = card.querySelector('.metric-card-title');
+    if (title) title.textContent = `指标 ${idx + 1}`;
+  });
 }
 
 // ===== CHAT =====
@@ -1991,11 +2004,21 @@ function addChatExtra(html) {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-function addFileCardMsg() {
+function formatBytes(bytes) {
+  if (!bytes || bytes < 1024) return `${bytes || 0} B`;
+  const kb = bytes / 1024;
+  if (kb < 1024) return `${kb.toFixed(1)} KB`;
+  const mb = kb / 1024;
+  return `${mb.toFixed(1)} MB`;
+}
+
+function addFileCardMsg(file) {
+  const name = file?.name || '已上传文件';
+  const size = formatBytes(file?.size || 0);
   const html = `<div style="margin-left:auto;max-width:400px;animation:fadeIn 0.3s ease;">
     <div class="chat-file-card" style="border-color:#FCDCC8;background:#FFFAF6;">
       <div class="fc-icon"><svg width="22" height="22" fill="none" stroke="#E87A3A" stroke-width="1.8"><path d="M14 2H7a2 2 0 00-2 2v14a2 2 0 002 2h9a2 2 0 002-2V6l-4-4z"/><polyline points="14 2 14 6 18 6"/></svg></div>
-      <div class="fc-info"><div class="fc-name">SQL_history_2024.sql</div><div class="fc-meta">.sql · 128 KB · 已上传 ✓</div></div>
+      <div class="fc-info"><div class="fc-name">${name}</div><div class="fc-meta">${size} · 已上传 ✓</div></div>
     </div>
   </div>`;
   chatMessages.insertAdjacentHTML('beforeend', html);
@@ -2011,15 +2034,30 @@ function addLoadingMsg() {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
+function unlockDataNav() {
+  if (dataUnlocked) return;
+  dataUnlocked = true;
+}
+
 $('uploadBtn').addEventListener('click', () => {
+  fileInput.click();
+});
+
+fileInput.addEventListener('change', () => {
   if (chatStep >= 1) return;
-  chatStep = 1;
+  const file = fileInput.files && fileInput.files[0];
+  if (!file) return;
+  selectedFile = file;
+  fcName.textContent = file.name;
+  fcMeta.textContent = `${formatBytes(file.size)} · 已选择`;
   uploadPreview.classList.add('show');
-  chatInput.focus();
+  chatStep = 1;
 });
 
 $('removeFile').addEventListener('click', () => {
   chatStep = 0;
+  selectedFile = null;
+  fileInput.value = '';
   uploadPreview.classList.remove('show');
 });
 
@@ -2032,7 +2070,8 @@ policyModal.addEventListener('click', e => { if (e.target === policyModal) polic
 
 function handleSend() {
   if (chatStep === 0) {
-    const text = chatInput.value.trim() || '帮我生成指标';
+    const text = chatInput.value.trim();
+    if (!text) return;
     chatInput.value = '';
     addChatMsg('user', text);
     setTimeout(() => addChatMsg('bot', '请先上传你的 SQL 历史文件，点击输入框左侧的 📄 按钮上传文件。'), 400);
@@ -2040,11 +2079,20 @@ function handleSend() {
   }
   if (chatStep >= 2) return;
 
-  const text = chatInput.value.trim() || '根据上传的 SQL history 自动生成指标';
+  const text = chatInput.value.trim();
   chatInput.value = '';
   uploadPreview.classList.remove('show');
 
-  addFileCardMsg();
+  addFileCardMsg(selectedFile);
+
+  if (!text) {
+    setTimeout(() => {
+      addChatMsg('bot', '文件已收到 ✅ 想基于它做什么分析？你可以告诉我：<br>• 生成指标<br>• 查看字段/表结构<br>• 提取口径或清洗建议<br>…');
+      chatStep = 1;
+    }, 300);
+    return;
+  }
+
   setTimeout(() => { addChatMsg('user', text); chatStep = 2; }, 300);
   setTimeout(() => { addLoadingMsg(); chatStep = 3; }, 900);
   setTimeout(() => {
@@ -2052,6 +2100,7 @@ function handleSend() {
     if (el) el.remove();
     addChatMsg('bot', '✅ 分析完成！从你的 SQL 历史中识别到 <strong>4 张数据表</strong>，共提取 <strong>6 个候选指标</strong>。<br><br>请点击下方链接预览并确认生成的指标：');
     setTimeout(() => {
+      unlockDataNav();
       addChatExtra(`
         <div class="preview-link" id="previewLinkCard">
           <div class="pl-label">📊 指标预览已就绪</div>
@@ -2073,6 +2122,7 @@ function handleSend() {
 
 // ===== NAVIGATION =====
 function goToData() {
+  if (!dataUnlocked) return;
   page1.classList.remove('active');
   page2.classList.add('active');
   $('navData').classList.add('active');
@@ -2089,10 +2139,23 @@ function goToChat() {
 }
 
 $('navAnalysis').addEventListener('click', e => { e.preventDefault(); if(page1.classList.contains('active')) return; goToChat(); });
-$('navData').addEventListener('click', e => { e.preventDefault(); if(page2.classList.contains('active')) return; goToData(); });
+navData.addEventListener('click', e => {
+  e.preventDefault();
+  if (!dataUnlocked) return;
+  if (page2.classList.contains('active')) return;
+  goToData();
+});
 
 drawerMask.addEventListener('click', closeDrawer);
 document.querySelector('.drawer-close')?.addEventListener('click', closeDrawer);
+drawerPanel.addEventListener('click', e => {
+  const btn = e.target.closest('.metric-remove');
+  if (!btn) return;
+  const card = btn.closest('.metric-card');
+  if (!card) return;
+  card.remove();
+  refreshMetricCardTitles();
+});
 
 // ===== TABLE RENDERING =====
 function renderTables() {
